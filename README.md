@@ -1,4 +1,4 @@
-# UNet-SegmentationNet-Wolfram
+# UNet-Segmentation-Wolfram
 
 @Author: Ali Hashmi
 
