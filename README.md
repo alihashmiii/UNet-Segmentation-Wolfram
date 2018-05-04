@@ -5,4 +5,4 @@
 Implementation of UNet - network for obtaining binarized mask for objects in grayscale images - in Wolfram Language/Mathematica.
 
 
-![alt-text](https://github.com/alihashmiii/UNet-SegmentationNet-Wolfram/blob/master/for%20ReadME/highlight%20image.png)
+![alt-text](https://github.com/alihashmiii/UNet-SegmentationNet-Wolfram/blob/master/for%20ReadME/output%20image.png)
