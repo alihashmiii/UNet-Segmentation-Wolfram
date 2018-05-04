@@ -75,25 +75,28 @@ NetGraph[
 
 
 (* ::Section:: *)
-(*Training UNet*)
+(*Data Preparation*)
 
-
-(* ::Input:: *)
-(*(* images/masks need to be resized and shuffled *)*)
-
-
-trainNet[net_,dirImages_, dirMasks_, batchsize_: 8, maxtrainRounds_: 100]:=Module[{images,shuffledimages,keysshuffle,masks,shuffledmasks,
-dataset,validationset,unseen,labeldataset,labelvalidationset,groundTruth,trainedNN},
+dataPrep[dirImages_,dirMasks_]:= Module[{images,shuffledimages,keysshuffle,masks,shuffledmasks,dataset,
+validationset,unseen,labeldataset,labelvalidationset,groundTruth},
  SetDirectory[dirImages];
- images = ImageResize[Import[dir<>"\\"<>#],{168,168}]&/@FileNames[];
- shuffledimages=RandomSample@Thread[Range@Length@images ->images];
- keysshuffle=Keys@shuffledimages;
+ images = ImageResize[Import[dirImages<>"\\"<>#],{168,168}]&/@FileNames[];
+ shuffledimages = RandomSample@Thread[Range@Length@images ->images];
+ keysshuffle = Keys@shuffledimages;
  SetDirectory[dirMasks];
- masks=Binarize[ImageResize[Import[dir<>"\\"<>#],{160,160}]]&/@FileNames[];
- shuffledmasks=Lookup[<|Thread[Range@Length@masks -> masks]|>,keysshuffle];
+ masks = Binarize[ImageResize[Import[dirMasks<>"\\"<>#],{160,160}]]&/@FileNames[];
+ shuffledmasks = Lookup[<|Thread[Range@Length@masks -> masks]|>,keysshuffle];
  {dataset,validationset,unseen}=TakeList[Values@shuffledimages,{290,80,20}];
  {labeldataset,labelvalidationset,groundTruth}=TakeList[shuffledmasks,{290,80,20}];
- trainedNN=NetTrain[net,Thread[dataset->labeldataset], ValidationSet->Thread[validationset-> labelvalidationset],
-  BatchSize->batchsize,MaxTrainingRounds->maxtrainRounds, TargetDevice->"GPU"];
- {trainedNN,unseen,groundTruth}
+ {{dataset,labeldataset},{validationset,labelvalidationset},{unseen,groundTruth}}
+];
+
+
+(* ::Section:: *)
+(*Training UNet*)
+
+trainNet[net_,dataset_,labeldataset_,validationset_,labelvalidationset_,batchsize_: 8,maxtrainRounds_: 100]:=Module[{},
+NetTrain[net, Thread[dataset->labeldataset],
+ValidationSet -> Thread[validationset-> labelvalidationset],
+BatchSize->batchsize,MaxTrainingRounds->maxtrainRounds, TargetDevice->"GPU"]
 ]
