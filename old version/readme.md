@@ -1,4 +1,4 @@
-**Note: this is a version that does not segment noisy/complicated cases well. use the other version instead**
+### Note: this is a version that does not segment noisy/complicated cases well. use the other version instead
 
 
 ![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/1.png)
