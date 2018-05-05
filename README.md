@@ -8,4 +8,4 @@ Implementation of UNet - network for obtaining binarized mask for objects in gra
 
 ![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/m2.png)
 
-![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/m3.png)
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/m30.png)
