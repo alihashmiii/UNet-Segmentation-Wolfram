@@ -8,29 +8,29 @@ BeginPackage["UNETSegmentation`"]
 
 
 convolutionModule[kernelsize_,padsize_,stride_]:=NetChain[
-{ConvolutionLayer[1,kernelsize,"Stride"-> stride,"PaddingSize"-> padsize],
-BatchNormalizationLayer[],
-ElementwiseLayer[Ramp]}
+ {ConvolutionLayer[1,kernelsize,"Stride"-> stride,"PaddingSize"-> padsize],
+ BatchNormalizationLayer[],
+ ElementwiseLayer[Ramp]}
 ];
 
 
 decoderModule[kernelsize_,padsize_,stride_]:= NetChain[
-{DeconvolutionLayer[1,{2,2},"PaddingSize"-> 0,"Stride"->{2, 2}],
-BatchNormalizationLayer[],
-ElementwiseLayer[Ramp],
-convolutionModule[kernelsize,padsize,stride]}
+ {DeconvolutionLayer[1,{2,2},"PaddingSize"-> 0,"Stride"->{2, 2}],
+ BatchNormalizationLayer[],
+ ElementwiseLayer[Ramp],
+ convolutionModule[kernelsize,padsize,stride]}
 ];
 
 
 encodeModule[kernelsize_,padsize_,stride_]:=NetAppend[
-convolutionModule[kernelsize,padsize,stride],
-PoolingLayer[{2,2},"Function"-> Max,"Stride"-> {2,2}]
+ convolutionModule[kernelsize,padsize,stride],
+ PoolingLayer[{2,2},"Function"-> Max,"Stride"-> {2,2}]
 ];
 
 
 cropLayer[{dim1_,dim2_}]:=NetChain[
-{PartLayer[{1,1;;dim1,1;;dim2}],
-ReshapeLayer[{1,dim1,dim2}]}
+ {PartLayer[{1,1;;dim1,1;;dim2}],
+ ReshapeLayer[{1,dim1,dim2}]}
 ];
 
 
@@ -82,17 +82,17 @@ NetGraph[
 
 
 dataPrep[dirImages_,dirMasks_,partition_:{290,80,20}]:= Module[{images,shuffledimages,keysshuffle,masks,shuffledmasks,dataset,
-validationset,unseen,labeldataset,labelvalidationset,groundTruth},
-SetDirectory[dirImages];
-images = ImageResize[Import[dirImages<>"\\"<>#],{168,168}]&/@FileNames[];
-shuffledimages = RandomSample@Thread[Range@Length@images ->images];
-keysshuffle = Keys@shuffledimages;
-SetDirectory[dirMasks];
-masks = Binarize[ImageResize[Import[dirMasks<>"\\"<>#],{160,160}]]&/@FileNames[];
-shuffledmasks = Lookup[<|Thread[Range@Length@masks -> masks]|>,keysshuffle];
-{dataset,validationset,unseen}=TakeList[Values@shuffledimages,partition];
-{labeldataset,labelvalidationset,groundTruth}=TakeList[shuffledmasks,partition];
-{{dataset,labeldataset},{validationset,labelvalidationset},{unseen,groundTruth}}
+ validationset,unseen,labeldataset,labelvalidationset,groundTruth},
+ SetDirectory[dirImages];
+ images = ImageResize[Import[dirImages<>"\\"<>#],{168,168}]&/@FileNames[];
+ shuffledimages = RandomSample@Thread[Range@Length@images ->images];
+ keysshuffle = Keys@shuffledimages;
+ SetDirectory[dirMasks];
+ masks = Binarize[ImageResize[Import[dirMasks<>"\\"<>#],{160,160}]]&/@FileNames[];
+ shuffledmasks = Lookup[<|Thread[Range@Length@masks -> masks]|>,keysshuffle];
+ {dataset,validationset,unseen}=TakeList[Values@shuffledimages,partition];
+ {labeldataset,labelvalidationset,groundTruth}=TakeList[shuffledmasks,partition];
+ {{dataset,labeldataset},{validationset,labelvalidationset},{unseen,groundTruth}}
 ];
 
 
@@ -100,21 +100,18 @@ shuffledmasks = Lookup[<|Thread[Range@Length@masks -> masks]|>,keysshuffle];
 (*Training UNet*)
 
 
-trainNetwithValidation[net_,dataset_,labeldataset_,validationset_,labelvalidationset_, batchsize_: 8, maxtrainRounds_: 100]:=Module[{dir,newDir},
-dir=SetDirectory[NotebookDirectory[]];
-NetTrain[net, dataset->labeldataset,All,
-ValidationSet -> Thread[validationset-> labelvalidationset],
-BatchSize->batchsize,MaxTrainingRounds->maxtrainRounds, TargetDevice->"GPU",
-TrainingProgressCheckpointing->{"Directory","results","Interval"->Quantity[5,"Rounds"]}]
+trainNetwithValidation[net_,dataset_,labeldataset_,validationset_,labelvalidationset_, batchsize_: 8, maxtrainRounds_: 100]:=Module[{},
+ SetDirectory[NotebookDirectory[]];
+ NetTrain[net, dataset->labeldataset,All, ValidationSet -> Thread[validationset-> labelvalidationset],
+  BatchSize->batchsize,MaxTrainingRounds->maxtrainRounds, TargetDevice->"GPU",
+  TrainingProgressCheckpointing->{"Directory","results","Interval"->Quantity[5,"Rounds"]}]
 ];
 
 
 trainNet[net_,dataset_,labeldataset_, batchsize_:8, maxtrainRounds_: 100]:=Module[{},
-SetDirectory[NotebookDirectory[]];
-NetTrain[net, Thread[dataset->labeldataset],
-All,
-BatchSize->batchsize,MaxTrainingRounds->maxtrainRounds, TargetDevice->"GPU",
-TrainingProgressCheckpointing->{"Directory","results","Interval"-> Quantity[5,"Rounds"]}]
+ SetDirectory[NotebookDirectory[]];
+ NetTrain[net, dataset->labeldataset,All, BatchSize->batchsize,MaxTrainingRounds->maxtrainRounds, TargetDevice->"GPU",
+  TrainingProgressCheckpointing->{"Directory","results","Interval"-> Quantity[5,"Rounds"]}]
 ];
 
 
@@ -123,11 +120,10 @@ TrainingProgressCheckpointing->{"Directory","results","Interval"-> Quantity[5,"R
 
 
 measureModelAccuracy[net_,data_,groundTruth_]:= Module[{acc},
-acc =
-Table[
-{i, 1.0 - HammingDistance[Flatten@Round@ImageData@net[ data[[i]] ],Flatten@ImageData@groundTruth[[i]]]/(160*160)},
-{i,Length@data}];
-{Mean@Part[acc,All,2],TableForm@acc}
+acc = Table[
+ {i, 1.0 - HammingDistance[Flatten@Round@ImageData@net[ data[[i]] ],Flatten@ImageData@groundTruth[[i]]]/(160*160)},
+ {i,Length@data}];
+ {Mean@Part[acc,All,2],TableForm@acc}
 ];
 
 
@@ -136,17 +132,17 @@ Table[
 
 
 saveNeuralNet[net_]:= Module[{dir = NotebookDirectory[]},
-Export[dir<>"unet.wlnet",net]
-]/; Head[net]=== NetGraph;
+ Export[dir<>"unet.wlnet",net]
+ ]/; Head[net] === NetGraph;
 
 
 saveInputs[data_,labels_,opt:("data"|"validation")]:=Module[{},
-SetDirectory[NotebookDirectory[]];
-Switch[opt,"data",
-Export["X.mx",data];Export["Y.mx",labels],
-"validation",
-Export["Xval.mx",data];Export["Yval.mx",labels]
-]
+ SetDirectory[NotebookDirectory[]];
+ Switch[opt,"data",
+  Export["X.mx",data];Export["Y.mx",labels],
+  "validation",
+  Export["Xval.mx",data];Export["Yval.mx",labels]
+ ]
 ]
 
 
