@@ -2,8 +2,6 @@
 
 `@Authors: Ali Hashmi & Alexey Golyshev (Russia)`
 
-[![releases]()]
-[![Mathematica 11.3]]
 
 #### Implementation of UNet - network for obtaining binarized mask for objects in grayscale images - in Wolfram Language.
 
