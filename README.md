@@ -1,9 +1,6 @@
 # UNet-Segmentation-Wolfram
 
-@Author: Ali Hashmi
-
-**`Note: an upgrade of the network (for performance enhancement) is coming soon in collaboration with Alexey Golyshev (from Russia)`**
-
+@Authors: Ali Hashmi & Alexey Golyshev (Russia)
 
 Implementation of UNet - network for obtaining binarized mask for objects in grayscale images - in Wolfram Language/Mathematica.
 
