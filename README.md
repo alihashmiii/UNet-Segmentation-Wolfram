@@ -16,3 +16,8 @@
 ![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/m2.png)
 
 ![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/m30.png)
+
+
+## OUTPUT FOR A SERIES OF IMAGES
+
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/unetoutput2.png)
