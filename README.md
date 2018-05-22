@@ -10,16 +10,16 @@
 
 
 
-![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/m10.png)
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/img1.png)
 
-![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/m2.png)
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/img2.png)
 
-![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/m30.png)
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/img3.png)
 
 
 ## OUTPUT FOR A SERIES OF IMAGES 
 
-`@Note`: The results below were acheived with a trained net having an accuracy of 98.9% (w.r.t. ground truth)
+`@Note`: The results below were acheived with a trained net having an accuracy of 98.55% (w.r.t. ground truth)
 
 
-![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/unetwolframoutput.png)
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/img4.png)
