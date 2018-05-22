@@ -75,7 +75,6 @@ Part[fNames,Ordering@ordering]);
 
 imgfilenames = func@dirImage;
 X = ImageResize[Import[dirImage<>"\\"<>#],{160,160}]&/@imgfilenames;
-
 maskfilenames = func@dirMask;
 masks = Import[dirMask<>"\\"<>#]&/@maskfilenames;
 {X, NetEncoder[{"Image",{160,160},ColorSpace->"Grayscale"}]/@masks}
