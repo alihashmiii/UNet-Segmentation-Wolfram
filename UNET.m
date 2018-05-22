@@ -66,16 +66,17 @@ NetPort["Input"]->"enc_1"->"enc_2"->"enc_3"->"enc_4"->"enc_5",
 (*DataPrep*)
 
 
-dataPrep[dirImage_,dirMask_]:=Module[{X, masks,imgfilenames, maskfilenames,ordering, fNames},
-SetDirectory[dirImage];
+dataPrep[dirImage_,dirMask_]:=Module[{X, masks,imgfilenames, maskfilenames,ordering, fNames,func},
+
+func[dir_] := (SetDirectory[dir];
 fNames = FileNames[];
-ordering=Flatten@StringCases[fNames,x_~~p:DigitCharacter..:>ToExpression@p];
-imgfilenames = Part[fNames,Ordering@ordering];
+ordering = Flatten@StringCases[fNames,x_~~p:DigitCharacter.. :> ToExpression@p];
+Part[fNames,Ordering@ordering]);
+
+imgfilenames = func@dirImage;
 X = ImageResize[Import[dirImage<>"\\"<>#],{160,160}]&/@imgfilenames;
-SetDirectory[dirMask];
-fNames = FileNames[];
-ordering=Flatten@StringCases[fNames,x_~~p:DigitCharacter..:>ToExpression@p];
-maskfilenames = Part[fNames,Ordering@ordering];
+
+maskfilenames = func@dirMask;
 masks = Import[dirMask<>"\\"<>#]&/@maskfilenames;
 {X, NetEncoder[{"Image",{160,160},ColorSpace->"Grayscale"}]/@masks}
 ]
