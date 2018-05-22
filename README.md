@@ -9,12 +9,11 @@
 #### neural net architecture based on: https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net
 
 
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadMe/img1.png)
 
-![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/img1.png)
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadMe/img2.png)
 
-![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/img2.png)
-
-![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/img3.png)
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadMe/img3.png)
 
 
 ## OUTPUT FOR A SERIES OF IMAGES 
@@ -22,4 +21,4 @@
 `@Note`: The results below were acheived with a trained net having an accuracy of 98.55% (w.r.t. ground truth)
 
 
-![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadME/img4.png)
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadMe/img4.png)
