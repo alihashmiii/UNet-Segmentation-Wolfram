@@ -21,4 +21,4 @@
 `@Note`: The results below were acheived with a trained net having an accuracy of 98.55% (w.r.t. ground truth)
 
 
-![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadMe/img4.png)
+![alt-text](https://github.com/alihashmiii/UNet-Segmentation-Wolfram/blob/master/for%20ReadMe/img04.png)
