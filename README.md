@@ -2,6 +2,8 @@
 
 `@Authors: Ali Hashmi & Alexey Golyshev (Russia)`
 
+`implemented in Mathematica 11.3`
+
 ![compatibility](https://img.shields.io/badge/mathematica%20version-11.3-ff69b4.svg) 
 ![status](https://img.shields.io/badge/status-passed-blue.svg)
 
